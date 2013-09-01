@@ -1,0 +1,60 @@
+(provide 'mew-cfg)
+
+(defvar mew-cite-fields '("From:" "Subject:" "Date:"))
+(defvar mew-cite-format "From: %s\nSubject: %s\nDate: %s\n\n")
+(defvar mew-cite-prefix "> ")
+
+(setq mew-mail-path "~/.emacs.d/EmacsData/Mail")
+
+(setq mew-signature-file "~/.emacs.d/tools/mew-signature")
+(setq mew-signature-as-lastpart t)
+(setq mew-signature-insert-last t)
+(add-hook 'mew-before-cite-hook 'mew-header-goto-body)
+(add-hook 'mew-draft-mode-newdraft-hook 'mew-draft-insert-signature)
+
+(setq mew-config-alist
+      '(
+        ;; Default fetch mailbox is IMAP
+		("default"
+         (mailbox-type          imap)
+         (proto                 "%")
+         (imap-server           "imap.126.com")
+         (imap-user             "taozhijiangscu@126.com")
+         (name                  "taozhijiangscu")
+         (user                  "taozhijiangscu")
+         (mail-domain           "126.com")
+         (imap-tls 		      t)
+         (imap-size              0)
+         (imap-delete            t)
+         (imap-queue-folder     "%queue")
+         (imap-trash-folder     "%Trash")
+         (imap-ssl-port "143")
+         ;; This must be in concile with your IMAP box setup
+         (smtp-ssl t)
+         (smtp-auth-list        ("PLAIN" "LOGIN" "CRAM-MD5"))
+         (smtp-user             "taozhijiangscu@126.com")
+         (smtp-server           "smtp.126.com")
+         (smtp-ssl-port "25")
+        )
+        ("gmail"
+         (mailbox-type          imap)
+         (proto                 "%")
+         (imap-server           "imap.gmail.com")
+         (imap-user             "taozhijiang@gmail.com")
+         (name                  "taozhijiang")
+         (user                  "taozhijiang")
+         (mail-domain           "gmail.com")
+         (imap-ssl 		     t)
+         (imap-size             0)
+         (imap-delete           t)
+         (imap-queue-folder     "%queue")
+         (imap-trash-folder     "%Trash")
+         (imap-ssl-port "993")
+         ;; This must be in concile with your IMAP box setup
+         (smtp-ssl t)
+         (smtp-auth-list        ("PLAIN" "LOGIN" "CRAM-MD5"))
+         (smtp-user             "taozhijiang@gmail.com")
+         (smtp-server           "smtp.gmail.com")
+         (smtp-ssl-port "465")
+        )
+))
