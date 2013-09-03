@@ -11,6 +11,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;
+;;  header2
+(autoload 'auto-update-file-header "header2")
+(add-hook 'write-file-hooks 'auto-update-file-header)
+(autoload 'auto-make-header "header2")
+(add-hook 'c-mode-common-hook   'auto-make-header)
+(add-hook 'c++-mode-common-hook   'auto-make-header)
+
 
 ;;The yasippet code auto-complete specification
 (add-to-list 'load-path 
@@ -52,14 +60,14 @@
 ;; Now I am using ecetb instead of gcc to have a try
 ;;(require 'gccsense)
 ;; Use 'M-\' to display complete list
-(global-set-key "\257" (quote ac-complete-gccsense))
+;;(global-set-key "\257" (quote ac-complete-gccsense))
 
 ;;For multi-line comment, all begin with /*
 (setq comment-multi-line t)
 ;;compile command
-(setq compile-command "make")
+;;(setq compile-command "make")
 ;;Allow for multi-window gdb debug
-(setq gdb-many-windows t)
+;;(setq gdb-many-windows t)
 
 ;; C language develop
 (add-hook 'c-mode-hook
@@ -92,30 +100,31 @@
 
 ;; remove the build-in cedet
 (setq load-path (remove "/usr/local/share/emacs/23.4/lisp/cedet" load-path))
-
+(add-to-list 'load-path
+			 (concat relative-dir "/program/cedet-1.1/"))
 (load-file 
-	(concat relative-dir "/program/cedet-1.0pre6/common/cedet.el"))
+	(concat relative-dir "/program/cedet-1.1/common/cedet.el"))
 (setq semanticdb-default-save-directory 
 	(concat relative-dir "/EmacsData/semanticdb/"))
 ;; just for try
 (setq auto-save-hook nil)
 
 ;; Enable EDE (Project Management) features
-(global-ede-mode 1)
+;;(global-ede-mode 1)
 
 ;; mode
 ;; (semantic-load-enable-minimum-features)
 ;; (semantic-load-enable-code-helpers)
 ;; (semantic-load-enable-guady-code-helpers)
-(semantic-load-enable-excessive-code-helpers)
-(semantic-load-enable-semantic-debugging-helpers)
+;; (semantic-load-enable-excessive-code-helpers)
+;; (semantic-load-enable-semantic-debugging-helpers)
 
 ;;
-(require 'semantic-ia)
+;;(require 'semantic-ia)
 ;; Include system inc files
-(require 'semantic-gcc)
+;;(require 'semantic-gcc)
 
-(require 'eieio-opt)
+;;(require 'eieio-opt)
 
 ;; add for the usr & sys inc dir
 (defconst cedet-user-include-dirs
@@ -126,18 +135,12 @@
 							  "/usr/include/bits"
 							  "/usr/include/glib-2.0"
 							  "/usr/include/gnu"
-							  "/usr/include/gtk-2.0"
-							  "/usr/include/gtk-2.0/gdk-pixbuf"
-							  "/usr/include/gtk-2.0/gtk"
-							  "/usr/include/c++/4.4.4/"
 							  "/usr/local/include/c++/4.4.4/"
 							  "/usr/local/include"
 							  "~/KernelSrc/linux-2.6.24/include")
 )
 
 (semantic-add-system-include "~/KernelSrc/linux-2.6.24/include" 'c-mode)
-(semantic-add-system-include "/opt/QtSDK/QtSources/4.8.1/include" 'c++-mode)
-(semantic-add-system-include "/opt/QtSDK/log4qt/src/" 'c++-mode)
 (let ((include-dirs cedet-user-include-dirs))
   (setq include-dirs (append include-dirs cedet-sys-include-dirs))
   (mapc (lambda (dir)
@@ -145,25 +148,25 @@
           (semantic-add-system-include dir 'c-mode))
         include-dirs))
 
-(defun my-cedet-hook()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-  (local-set-key (kbd "M-n") 'semantic-ia-complete-symbol-menu)
+;;(defun my-cedet-hook()
+;;  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+;;  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+;;  (local-set-key (kbd "M-n") 'semantic-ia-complete-symbol-menu)
 
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key (kbd "M-/") 'semantic-complete-analyze-inline)
+;;  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+;;  (local-set-key (kbd "M-/") 'semantic-complete-analyze-inline)
 
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  (local-set-key "\C-cd" 'semantic-ia-fast-jump)
-  (local-set-key "\C-cr" 'semantic-symref-symbol)
-  (local-set-key "\C-cR" 'semantic-symref)
+;;  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+;;  (local-set-key "\C-cd" 'semantic-ia-fast-jump)
+;;  (local-set-key "\C-cr" 'semantic-symref-symbol)
+;;  (local-set-key "\C-cR" 'semantic-symref)
   ;;; c/c++ setting
-  (local-set-key "." 'semantic-complete-self-insert)
-  (local-set-key ">" 'semantic-complete-self-insert)
-)
+;;  (local-set-key "." 'semantic-complete-self-insert)
+;;  (local-set-key ">" 'semantic-complete-self-insert)
+;;)
 
-(add-hook 'c-mode-common-hook 'my-cedet-hook)
-(add-hook 'c++-mode-common-hook 'my-cedet-hook)
+;;(add-hook 'c-mode-common-hook 'my-cedet-hook)
+;;(add-hook 'c++-mode-common-hook 'my-cedet-hook)
 
 
 ;; flymake
@@ -258,14 +261,15 @@
 	(concat relative-dir "/program/cscope-15.8a/contrib/xcscope"))
 (require 'xcscope)
 
-(provide 'program)
-;; The end of the program
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git-emacs
 ;; The front interface of the git for emacs editor
 (add-to-list 'load-path
 			 (concat relative-dir "/program/git-emacs/" ))
 (require 'git-emacs)
+
+
+(provide 'program)
+;; The end of the program
+
 

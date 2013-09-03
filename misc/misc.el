@@ -24,19 +24,10 @@
 (setq dired-guess-shell-alist-user
       (list
        (list "\\.chm$" "xchm")
-       (list "\\.rm$" "smplayer * >/dev/null 2>&1 &")
-       (list "\\.rmvb$" "smplayer * >/dev/null 2>&1 &")
-       (list "\\.mkv$" "smplayer * >/dev/null 2>&1 &")
-       (list "\\.avi$" "smplayer * >/dev/null 2>&1 &")
-       (list "\\.mp3$" "smplayer * >/dev/null 2>&1 &")
-       (list "\\.wmv$" "smplayer * >/dev/null 2>&1 &")
-       (list "\\.asf$" "smplayer")
        (list "\\.odt$" "openoffice.org * >/dev/null 2>&1 &")
        (list "\\.doc$" "openoffice.org * >/dev/null 2>&1 &")
        (list "\\.ppt$" "openoffice.org * >/dev/null 2>&1 &")
        (list "\\.xml$" "openoffice.org * >/dev/null 2>&1 &")
-       (list "\\.htm$" "firefox")
-       (list "\\.html$" "firefox")
        )
 )
 
@@ -157,5 +148,8 @@
 
 (require 'redo+)
 (global-set-key (kbd "C-.") 'redo)
+
+;; Auto close and reuse termianl --> ansi-term
+(require 'terminal)
 
 (provide 'misc)

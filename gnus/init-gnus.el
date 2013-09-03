@@ -1,16 +1,25 @@
 ;; Emacs profile for gnus
 
-(setq user-full-name "Nicol TAO")
+(setq user-full-name "taozhijiang")
 (setq user-mail-address "taozhijiang@gmail.com")
 
-;; We use gnus for email NOW!
-(setq starttls-use-gnutls t)
-
-(load-library "smtpmail")
-(load-library "nnimap")
-(load-library "starttls")
-
 (require 'gnus-notify+)
+
+(setq gnus-default-subscribed-newsgroups
+	  '(  "gmane.comp.lang.c.general"
+		 "gmane.comp.shells.bash.help"
+		 "gmane.linux.scientific.user"
+		 "gmane.linux.scientific.devel"
+		"gmane.emacs.customize"
+		"gwene.org.emacswiki"
+		"gmane.linux.kernel.kernelnewbies"
+		"gmane.linux.kernel.modules"
+		"gmane.linux.kernel.embedded"
+		"gmane.linux.ubuntu.user.chinese"
+		"gmane.linux.ports.mips"
+		"gmane.linux.ports.mips.devel"
+		"gmane.linux.ports.mips.general"
+		 "gmane.lisp.china" ))
 
 (setq gnus-default-directory
 	  (concat gnus-relative-dir "/EmacsData/Gnus/"))                    ;默认目录
@@ -39,8 +48,8 @@
 (gnus-add-configuration
  '(article
    (horizontal 1.0
-             (summary .40 point)
-             (article 1.0))))
+       (summary .40 point)
+       (article 1.0))))
 
 ;; System encoding
 ;; Anyway, try utf-8
@@ -65,91 +74,13 @@
         '(unknown-8bit x-unknown iso-8859-1 gb18030 x-gbk))
 
 
-(setq gnus-secondary-select-methods '(;;(nnimap "imap.gmail.com"
-;;               (nnimap-address "imap.gmail.com")
-;;               (nnimap-server-port 993)
-;; 			     (remove-prefix "INBOX.")
-;;               (nnimap-authinfo-file "~/.emacs.d/gnus/.authinfo")
-;;               (nnimap-stream ssl))
-;;									 (nnimap "imap.126.com"
-;;               (nnimap-address "imap.126.com")
-;;               (nnimap-server-port 143)
-;;			   (remove-prefix "INBOX.")
-;;               (nnimap-authinfo-file "~/.emacs.d/gnus/.authinfo")
-;;               (nnimap-stream starttls)) ;; attention, 163.com use starttls
-;;									  (nntp "freenews.netfront.net")
-									  (nntp "localhost"))
-			  						  )
-
-;;(setq smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil);
-;;									  ("smtp.126.com" 25 nil nil))
-;;          smtpmail-smtp-server "smtp.gmail.com"
-;;          smtpmail-default-smtp-server "smtp.gmail.com"
-;;          send-mail-function 'smtpmail-send-it
-;;          message-send-mail-function 'smtpmail-send-it
-;;          smtpmail-smtp-service 587
-;;          smtpmail-auth-credentials '(("smtp.gmail.com"
-;;									   587
-;;									   "your_email_name@gmail.com"
-;;									   nil)
-;;									  ("smtp.126.com"
-;;									   25
-;;									   "your_email_name@`126.com"
-;;									   nil)))
-
-;; Display the image
-(auto-image-file-mode 1)  
-(setq w3m-toggle-inline-images t)
-(setq mm-inline-large-images t)  
-(add-to-list 'mm-attachment-override-types "image/.*")  
-
-(setq mm-inline-text-html-with-images t
-	  w3m-safe-url-regexp nil
-	  mm-w3m-safe-url-regexp nil)
-
-;; We need the w3m mode, then can do with mime
-(add-hook 'gnus-article-mode-hook
-		   (lambda()
-			 (require 'w3m)
-			 (w3m-minor-mode)))
-
-(setq gnus-mime-display-multipart-related-as-mixed nil)
-(setq mm-text-html-renderer 'w3m)
-(eval-after-load "mm-decode"
-	'(progn 
-		(add-to-list 'mm-discouraged-alternatives "text/html")
-	        (add-to-list 'mm-discouraged-alternatives "text/richtext")))
-(setq mm-inline-text-html-with-images t)
-(setq mm-inline-text-html-with-w3m-keymap nil)
+(setq gnus-select-method '( nntp "localhost"))
+(setq gnus-secondary-select-methods '((nntp "localhost")))
 
 ;; The newsgroup subscribe
 ;;(setq gnus-nntp-server "freenews.netfront.net")
 ;;(setq gnus-nntp-server "news.gmane.org")
 (setq gnus-nntp-server "localhost") 
-
-(setq gnus-default-subscribed-newsgroups
-	  '( 
-		 "gmane.comp.lang.c.general"
-		 "gmane.comp.shells.bash.help"
-		 "gmane.lisp.china"
-;;		 "gwene.cn.coolshell"
-;;		 "gwene.com.cnbeta.com"
-;;		 "gwene.com.feedburner.bbc.world"
-;;		 "gwene.com.feedburner.jandan.vip"
-;;		 "gwene.com.feedburner.solidot"
-;;		 "gwene.com.ifanr"
-;;		 "gwene.info.yueguang-blog"
-;;		 "gwene.net.feedex.feed.feeds.feedburner.com.nfzm.hotnews"
-;;		 "gwene.net.feedex.feed.songshuhui.net"
-;;		 "gwene.net.feedex.feed.www.linuxeden.com"
-;;		 "gwene.net.feedex.feed.www.lupaworld.com.myrss"
-;;		 "gmane.linux.debian.user"
-;;		 "gmane.linux.ubuntu.user.chinese"
-;;		 "gmane.linux.ubuntu.user"
-;;		 "gwene.org.anyshare"
-;;		 "gmane.linux.debian.devel.changes.testing"
-;;		 "gmane.linux.debian.devel.kernel"
-		))
 
 ;; Display formate
 ;; Thread summary

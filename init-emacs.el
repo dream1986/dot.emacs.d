@@ -213,4 +213,8 @@
 	  kept-old-versions 2 ; 保留最早的2个备份文件
 	  version-control t) ; 多次备份
 
+;; Other miscs
+;; 在minibuffer里面补全M-x执行命令
+(icomplete-mode)
+
 (provide 'init-emacs)
