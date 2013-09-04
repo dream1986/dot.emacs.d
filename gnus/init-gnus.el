@@ -143,7 +143,19 @@
       (concat "^[^"
               gnus-sum-thread-tree-vertical
               "]*"))
+
+;; Emacs签名档
+(setq message-signature-separator "^<--> $")
+ (setq gnus-posting-styles 
+     '( 
+	   (".*" (signature-file
+			  (concat gnus-relative-dir "/gnus/signature")))
+	   ("cn.*" (signature-file 
+			  (concat gnus-relative-dir "/gnus/signature")))
+	  )) 
+
 ;; 最后设置
 (gnus-compile)                          ;编译一些选项, 加快速度
+
 
 (provide 'init-gnus)

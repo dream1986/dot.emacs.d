@@ -73,3 +73,5 @@ If the current buffer is:
   )
 
 (add-hook 'term-mode-hook 'kill-buffer-when-shell-command-exit)
+
+(provide 'terminal)

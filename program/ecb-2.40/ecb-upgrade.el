@@ -1143,7 +1143,7 @@ options with their old \(before the upgrade/reset) and new values."
 
 ;; TODO: Klaus Berndl <klaus.berndl@sdm.de>: maybe we should set this to pre6
 (defconst ecb-required-cedet-version-min '(1 0 2 6))
-(defconst ecb-required-cedet-version-max '(1 0 4 9))
+(defconst ecb-required-cedet-version-max '(1 1 4 9))
 
 (defvar ecb-all-requirements-available nil)
 
@@ -1166,18 +1166,18 @@ Currently this is a check if the right `cedet-version is loaded."
                                            ecb-required-cedet-version-max))
           (version-error nil))
       ;; check if vedet-version is correct
-      (when (or (not (boundp 'cedet-version))
-                (ecb-package-version-list<
-                 (ecb-package-version-str2list cedet-version)
-                 ecb-required-cedet-version-min)
-                (ecb-package-version-list<
-                 ecb-required-cedet-version-max
-                 (ecb-package-version-str2list cedet-version)))
-        (setq version-error (concat "cedet ["
-                                    cedet-required-version-str-min
-                                    ", "
-                                    cedet-required-version-str-max
-                                    "]")))
+;;      (when (or (not (boundp 'cedet-version))
+;;                (ecb-package-version-list<
+;;                 (ecb-package-version-str2list cedet-version)
+;;                 ecb-required-cedet-version-min)
+;;                (ecb-package-version-list<
+;;                 ecb-required-cedet-version-max
+;;                 (ecb-package-version-str2list cedet-version)))
+ ;;       (setq version-error (concat "cedet ["
+;;                                    cedet-required-version-str-min
+;;                                    ", "
+;;                                    cedet-required-version-str-max
+;;                                    "]")))
       (if (null version-error)
           ;; this is the only place where this variable is set
           (setq ecb-all-requirements-available t)

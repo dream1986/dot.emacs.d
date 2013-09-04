@@ -34,23 +34,12 @@
 ;;	  (or (cdr (assoc desc real-keyboard-keys))
 ;;		  (read-key-macro desc))))
 
-;;Use this for multi-window move
-;;(global-unset-key (key "C-<left>"))
-;;(global-unset-key (key "C-<right>"))
-;;(global-unset-key (key "C-<up>"))
-;;(global-unset-key (key "C-<down>"))
-;;(global-set-key (key "C-<left>") 'windmove-left)
-;;(global-set-key (key "C-<right>") 'windmove-right)
-;;(global-set-key (key "C-<up>") 'windmove-up)
-;;(global-set-key (key "C-<down>") 'windmove-down)
-
 ;;auto-complete
 (add-to-list 'load-path 
-	(concat relative-dir "/program/auto-complete"))
-(require 'auto-complete)
+	(concat relative-dir "/program/auto-complete-1.3.1/"))
 (require 'auto-complete-config)
-(add-to-list 'load-path 
-	(concat relative-dir "/program/auto-complete/dict"))
+(add-to-list 'ac-dictionary-directories 
+	(concat relative-dir "/program/auto-complete-1.3.1/ac-dict"))
 (ac-config-default)
 (setq ac-comphist-file
 	(concat relative-dir "/EmacsData/ac-comphist.dat"))
@@ -101,7 +90,7 @@
 ;; remove the build-in cedet
 (setq load-path (remove "/usr/local/share/emacs/23.4/lisp/cedet" load-path))
 (add-to-list 'load-path
-			 (concat relative-dir "/program/cedet-1.1/"))
+			 (concat relative-dir "/program/cedet-1.1/common"))
 (load-file 
 	(concat relative-dir "/program/cedet-1.1/common/cedet.el"))
 (setq semanticdb-default-save-directory 
@@ -112,12 +101,13 @@
 ;; Enable EDE (Project Management) features
 ;;(global-ede-mode 1)
 
-;; mode
-;; (semantic-load-enable-minimum-features)
-;; (semantic-load-enable-code-helpers)
-;; (semantic-load-enable-guady-code-helpers)
-;; (semantic-load-enable-excessive-code-helpers)
-;; (semantic-load-enable-semantic-debugging-helpers)
+;;;;;;;;;;;;;;;;;;;;;;;
+;; semantic mode select
+(semantic-load-enable-minimum-features)
+(semantic-load-enable-code-helpers)
+(semantic-load-enable-guady-code-helpers)
+(semantic-load-enable-excessive-code-helpers)
+(semantic-load-enable-semantic-debugging-helpers)
 
 ;;
 ;;(require 'semantic-ia)
@@ -137,10 +127,10 @@
 							  "/usr/include/gnu"
 							  "/usr/local/include/c++/4.4.4/"
 							  "/usr/local/include"
-							  "~/KernelSrc/linux-2.6.24/include")
+							  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/")
 )
 
-(semantic-add-system-include "~/KernelSrc/linux-2.6.24/include" 'c-mode)
+(semantic-add-system-include  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/" 'c-mode)
 (let ((include-dirs cedet-user-include-dirs))
   (setq include-dirs (append include-dirs cedet-sys-include-dirs))
   (mapc (lambda (dir)
@@ -148,10 +138,10 @@
           (semantic-add-system-include dir 'c-mode))
         include-dirs))
 
-;;(defun my-cedet-hook()
+(defun my-cedet-hook()
 ;;  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
 ;;  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-;;  (local-set-key (kbd "M-n") 'semantic-ia-complete-symbol-menu)
+  (local-set-key (kbd "M-n") 'semantic-ia-complete-symbol-menu)
 
 ;;  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
 ;;  (local-set-key (kbd "M-/") 'semantic-complete-analyze-inline)
@@ -163,10 +153,10 @@
   ;;; c/c++ setting
 ;;  (local-set-key "." 'semantic-complete-self-insert)
 ;;  (local-set-key ">" 'semantic-complete-self-insert)
-;;)
+)
 
-;;(add-hook 'c-mode-common-hook 'my-cedet-hook)
-;;(add-hook 'c++-mode-common-hook 'my-cedet-hook)
+(add-hook 'c-mode-common-hook 'my-cedet-hook)
+(add-hook 'c++-mode-common-hook 'my-cedet-hook)
 
 
 ;; flymake
@@ -251,9 +241,23 @@
 ;;
 (add-to-list 'load-path 
 	(concat relative-dir "/program/ecb-2.40"))
-(setq ecb-tip-of-the-day nil)
 (require 'ecb)
+(require 'ecb-autoloads)
 
+(setq stack-trace-on-error nil)
+
+(setq ecb-auto-activate t
+	  ecb-tip-of-the-day nil)
+
+;; ecb shortcut
+(global-set-key (kbd "ESC <left>") 'windmove-left)
+(global-set-key (kbd "ESC <right>") 'windmove-right)
+(global-set-key (kbd "ESC <up>") 'windmove-up)
+(global-set-key (kbd "ESC <down>") 'windmove-down)
+
+;; show & hide ecb multi-windows
+(global-set-key (kbd "<f10>") 'ecb-hide-ecb-windows)
+(global-set-key (kbd "ESC <f10>") 'ecb-show-ecb-windows)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cscope
