@@ -24,10 +24,6 @@
 (setq dired-guess-shell-alist-user
       (list
        (list "\\.chm$" "xchm")
-       (list "\\.odt$" "openoffice.org * >/dev/null 2>&1 &")
-       (list "\\.doc$" "openoffice.org * >/dev/null 2>&1 &")
-       (list "\\.ppt$" "openoffice.org * >/dev/null 2>&1 &")
-       (list "\\.xml$" "openoffice.org * >/dev/null 2>&1 &")
        )
 )
 
@@ -70,7 +66,7 @@
 ;; 否则就查询当前光标所在的词
 (require 'showtip)
 
-(global-set-key (kbd "C-c d") 'kid-star-dict)
+;;(global-set-key (kbd "C-c e") 'kid-star-dict)
 (defun kid-star-dict ()
   (interactive)
   (let ((begin (point-min))

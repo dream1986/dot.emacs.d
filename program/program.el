@@ -20,14 +20,6 @@
 (add-hook 'c++-mode-common-hook   'auto-make-header)
 
 
-;;The yasippet code auto-complete specification
-(add-to-list 'load-path 
-	(concat relative-dir "/program/yasnippet-0.6.1c"))
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory 
-	(concat relative-dir "/program/yasnippet-0.6.1c/snippets"))
-
 ;;develop special key define
 ;;(defun key (desc)
 ;;  (or (and window-system (read-kbd-macro desc))
@@ -44,19 +36,14 @@
 (setq ac-comphist-file
 	(concat relative-dir "/EmacsData/ac-comphist.dat"))
 
-;;C & CPP
-;;gccsense
-;; Now I am using ecetb instead of gcc to have a try
-;;(require 'gccsense)
-;; Use 'M-\' to display complete list
-;;(global-set-key "\257" (quote ac-complete-gccsense))
 
 ;;For multi-line comment, all begin with /*
 (setq comment-multi-line t)
+
 ;;compile command
-;;(setq compile-command "make")
+(setq compile-command "make -f Makefile")
 ;;Allow for multi-window gdb debug
-;;(setq gdb-many-windows t)
+(setq gdb-many-windows t)
 
 ;; C language develop
 (add-hook 'c-mode-hook
@@ -109,10 +96,12 @@
 (semantic-load-enable-excessive-code-helpers)
 (semantic-load-enable-semantic-debugging-helpers)
 
+;; I use this to accelarate cedet with cscope
+(semanticdb-enable-cscope-databases)
 ;;
-;;(require 'semantic-ia)
+(require 'semantic-ia)
 ;; Include system inc files
-;;(require 'semantic-gcc)
+(require 'semantic-gcc)
 
 ;;(require 'eieio-opt)
 
@@ -129,8 +118,8 @@
 							  "/usr/local/include"
 							  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/")
 )
-
 (semantic-add-system-include  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/" 'c-mode)
+
 (let ((include-dirs cedet-user-include-dirs))
   (setq include-dirs (append include-dirs cedet-sys-include-dirs))
   (mapc (lambda (dir)
@@ -204,9 +193,8 @@
 					 "/usr/local/include"
 					 "/usr/include/c++/4.4.4/"
 					 "/usr/local/include/c++/4.4.4/"
-					 "~/KernelSrc/linux-2.6.24/include"
-					 "/opt/QtSDK/QtSources/4.8.1/include"
-					 "/opt/QtSDK/log4qt/src/")))))
+	       			  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/"
+					 )))))
   ">")
 
 (defvar wcy-c/c++-hightligh-included-files-key-map nil)
@@ -261,8 +249,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cscope
-(add-to-list 'load-path
-	(concat relative-dir "/program/cscope-15.8a/contrib/xcscope"))
 (require 'xcscope)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -271,6 +257,39 @@
 (add-to-list 'load-path
 			 (concat relative-dir "/program/git-emacs/" ))
 (require 'git-emacs)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; doxymacs
+(add-to-list 'load-path
+			 (concat relative-dir "/program/doxymacs/" ))
+(require 'doxymacs)
+(add-hook 'c-mode-common-hook 'doxymacs-mode)
+ (defun my-doxymacs-font-lock-hook ()
+    (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+        (doxymacs-font-lock)))
+  (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
+
+;;
+;; - Default key bindings are:
+;; - C-c d ? will look up documentation for the symbol under the point.
+;;  - C-c d r will rescan your Doxygen tags file.
+;;  - C-c d f will insert a Doxygen comment for the next function.
+;;  - C-c d i will insert a Doxygen comment for the current file.
+;;  - C-c d ; will insert a Doxygen comment for the current member.
+;;  - C-c d m will insert a blank multi-line Doxygen comment.
+;;  - C-c d s will insert a blank single-line Doxygen comment.
+;;  - C-c d @ will insert grouping comments around the current region.
+
+;;The yasippet code auto-complete specification
+(add-to-list 'load-path 
+	(concat relative-dir "/program/yasnippet-0.6.1c"))
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory 
+	(concat relative-dir "/program/yasnippet-0.6.1c/snippets"))
+(yas/global-mode)
+(global-set-key (kbd "C-c ; u") 'yas/expand)
 
 
 (provide 'program)
