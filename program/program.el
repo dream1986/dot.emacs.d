@@ -231,6 +231,7 @@
 	(concat relative-dir "/program/ecb-2.40"))
 (require 'ecb)
 (require 'ecb-autoloads)
+;;(setq ecb-layout-name "left-symboldef-lite")
 
 (setq stack-trace-on-error nil)
 

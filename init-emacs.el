@@ -217,4 +217,6 @@
 ;; 在minibuffer里面补全M-x执行命令
 (icomplete-mode)
 
+(require 'global-keyboard-keymap)
+
 (provide 'init-emacs)

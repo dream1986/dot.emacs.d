@@ -984,7 +984,6 @@ little more place."
 
 (ecb-layout-define "left-symboldef-lite" left
   "This function creates the following layout:
-   In a word: I do not like directory-window
 
    -------------------------------------------------------
    |              |                                      |

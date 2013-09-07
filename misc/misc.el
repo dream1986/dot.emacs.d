@@ -57,7 +57,7 @@
                 (joc-dired-single-buffer "..")))
             (setq joc-dired-use-magic-buffer t)
             (setq joc-dired-magic-buffer-name "*dired*")))
-(global-set-key (kbd "C-x d")
+(global-set-key (kbd "C-x C-d")
                 'joc-dired-magic-buffer)
 
 ;; author: pluskid

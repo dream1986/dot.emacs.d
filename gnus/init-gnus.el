@@ -19,6 +19,9 @@
 		"gmane.linux.ports.mips"
 		"gmane.linux.ports.mips.devel"
 		"gmane.linux.ports.mips.general"
+		"gmane.linux.centos.devel"
+		"gmane.linux.centos.documentation"
+		"gmane.linux.centos.general"
 		 "gmane.lisp.china" ))
 
 (setq gnus-default-directory
