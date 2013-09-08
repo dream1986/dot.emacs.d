@@ -1,10 +1,4 @@
 
-
-;; 用户用的C-t前缀按键
-(global-unset-key (kbd "C-t"))
-(define-prefix-command 'global-ct-keymap)
-(global-set-key (kbd "C-t") 'global-ct-keymap)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C- 按键
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -43,6 +37,10 @@
 (global-set-key (kbd "C-j") 'newline-and-indent) ;;回车，自动缩进
 (global-set-key (kbd "C-l") 'recenter-top-bottom) ;;光标位置固定，上下滚屏
 
+(global-set-key (kbd "z") 'suspend-frame) ;;停止emacs，退回到cml，在cml里面使用fg切换回来
+
+;;(global-set-key (kbd "C-m") 'cscope-select-entry-other-window)
+
 ;;(global-set-key (kbd "C-t") 'aa)
 ;;(global-set-key (kbd "C-m") 'bb)
 
@@ -57,8 +55,8 @@
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
 
-(global-set-key (kbd "M-p") 'forward-paragraph)
-(global-set-key (kbd "M-n") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
+(global-set-key (kbd "M-p") 'backward-paragraph)
 
 (global-set-key (kbd "M-c") 'capitalize-word)
 (global-set-key (kbd "M-u") 'upcase-word)
@@ -121,8 +119,21 @@
 
 (define-key ctl-x-map "b" 'switch-to-buffer)
 
+(define-key ctl-x-map "m" 'wenshan-edit-current-file-as-root) ;;sudo编辑当前文件
+
+(define-key ctl-x-map "u" 'undo)
+(define-key ctl-x-map "z" 'repeat)  ;;重复执行上条命令
+
+(define-key ctl-x-map "k" 'kill-buffer) ;;删除buffer，在minibuffer中提示删除的buffer名字
+(define-key ctl-x-map "l" 'goto-line)   ;;Same as M-g M-g
+(define-key ctl-x-map "h" 'mark-whole-buffer)
+(define-key ctl-x-map "i" 'insert-buffer) ;; 将文件插入到当前buffer中
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C-c 前缀
+
+(define-key ctl-c-map "s" 'query-replace)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -132,6 +143,14 @@
 (global-set-key (kbd "ESC <f10>") 'ecb-show-ecb-windows)
 (global-set-key (kbd "<f11>") 'toggle-fullscreen)
 (global-set-key (kbd "<f12>") 'gnus)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; 用户用的C-t前缀按键
+;; flyspell拼写检查，采用的huspell引擎
+(define-key ctl-t-map "f" 'flyspell-buffer)
+(define-key ctl-t-map "v" 'flyspell-mode)
 
 
 

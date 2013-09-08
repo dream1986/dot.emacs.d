@@ -11,8 +11,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq user-full-name "Nicol TAO")
+(setq user-full-name "taozhijiang")
 (setq user-mail-address "taozhijiang@gmail.com")
+
+;; Global Key Prefix Define
+;; C-c
+(define-prefix-command 'ctl-c-map)
+(global-set-key (kbd "C-c") 'ctl-c-map)
+;; C-t
+(global-unset-key (kbd "C-t"))
+(define-prefix-command 'ctl-t-map)
+(global-set-key (kbd "C-t") 'ctl-t-map)
+
+
 
 ;; We store backup all the files to the directory EmacsData/auto-save-list
 (add-to-list 'backup-directory-alist

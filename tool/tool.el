@@ -23,14 +23,17 @@
 			 (concat relative-dir "/tool/org-8.1/contrib/lisp/") t)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flyspell
 ;; Check your english spell
 ;; use M-x flyspell-mode  enable it
 ;; 1.7
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
-(global-set-key (kbd "C-c v") 'flyspell-mode)
+(setq-default ispell-program-name "hunspell")
+(define-key ctl-t-map "f" 'flyspell-buffer)
+(define-key ctl-t-map "v" 'flyspell-mode)
 
 (defun my-max-window()
 	(x-send-client-message nil 0 nil "_NET_WM_STATE" 32

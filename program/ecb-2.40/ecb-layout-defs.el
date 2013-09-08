@@ -951,7 +951,7 @@ little more place."
    -------------------------------------------------------
    |              |                                      |
    |  Directories |                                      |
-   |              |                                      |
+   |  XXXXXX      |                                      |
    |--------------|                                      |
    |              |                                      |
    |  Sources     |                                      |
@@ -979,41 +979,6 @@ little more place."
   (ecb-split-ver 0.35)
   (ecb-set-methods-buffer)
   (ecb-split-ver 0.5)
-  (ecb-set-symboldef-buffer)
-  (select-window (next-window)))
-
-(ecb-layout-define "left-symboldef-lite" left
-  "This function creates the following layout:
-
-   -------------------------------------------------------
-   |              |                                      |
-   |              |                                      |
-   |              |                                      |
-   |              |                                      |
-   |              |                                      |
-   |  Sources     |                                      |
-   |              |                                      |
-   |--------------|                 Edit                 |
-   |              |                                      |
-   |  Methods     |                                      |
-   |              |                                      |
-   |--------------|                                      |
-   |              |                                      |
-   |  Symbol-defs |                                      |
-   |              |                                      |
-   -------------------------------------------------------
-   |                                                     |
-   |                    Compilation                      |
-   |                                                     |
-   -------------------------------------------------------
-
-If you have not set a compilation-window in `ecb-compile-window-height' then
-the layout contains no persistent compilation window and the other windows get a
-little more place."
-  (ecb-set-sources-buffer)
-  (ecb-split-ver 0.30)
-  (ecb-set-methods-buffer)
-  (ecb-split-ver 0.6)
   (ecb-set-symboldef-buffer)
   (select-window (next-window)))
 
