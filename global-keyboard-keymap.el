@@ -135,6 +135,8 @@
 
 (define-key ctl-c-map "s" 'query-replace)
 
+(define-key ctl-c-map "a" 'ack)
+(define-key ctl-c-map "f" 'ack-find-file) ;;在当前路径中，选择目录打开的文件
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc 按键

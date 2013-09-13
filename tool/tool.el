@@ -74,5 +74,19 @@
 (require 'xml-rpc)
 (require 'org2blog-autoloads)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ack-and-a-half
+(require 'ack-and-a-half)
+;; Create shorter aliases
+(defalias 'ack 'ack-and-a-half)
+(defalias 'ack-same 'ack-and-a-half-same)
+(defalias 'ack-find-file 'ack-and-a-half-find-file)
+(defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
+
+(define-key ctl-c-map "a" 'ack)
+(define-key ctl-c-map "f" 'ack-find-file) ;;在当前路径中，选择目录打开的文件
+
+
 (provide 'tool)
 
