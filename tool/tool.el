@@ -13,16 +13,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Latest org
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path
-			 (concat relative-dir "/tool/org-8.1/lisp"))
-(add-to-list 'load-path 
-			 (concat relative-dir "/tool/org-8.1/contrib/lisp/") t)
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flyspell
@@ -62,17 +52,6 @@
 				(concat relative-dir "/EmacsData/auto-save-list/")))
 (setq tramp-backup-directory-alist backup-directory-alist)
 (setq tramp-chunksize 500) ;; just add this in case of hung
-
-
-;;;
-(add-to-list 'load-path
-			 (concat relative-dir "/tool/org2blog/"))
-;; Preload
-(add-to-list 'load-path
-			 (concat relative-dir "/tool/org2blog/metaweblog/"))
-(require 'metaweblog)
-(require 'xml-rpc)
-(require 'org2blog-autoloads)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -37,7 +37,7 @@
 (global-set-key (kbd "C-j") 'newline-and-indent) ;;回车，自动缩进
 (global-set-key (kbd "C-l") 'recenter-top-bottom) ;;光标位置固定，上下滚屏
 
-(global-set-key (kbd "z") 'suspend-frame) ;;停止emacs，退回到cml，在cml里面使用fg切换回来
+(global-set-key (kbd "C-z") 'suspend-frame) ;;停止emacs，退回到cml，在cml里面使用fg切换回来
 
 ;;(global-set-key (kbd "C-m") 'cscope-select-entry-other-window)
 
