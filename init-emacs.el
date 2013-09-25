@@ -230,4 +230,6 @@
 
 (require 'global-keyboard-keymap)
 
+(require 'emacs-code-patch)
+
 (provide 'init-emacs)
