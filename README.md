@@ -26,3 +26,6 @@ Note: you should change your relative-dir to your dot.emacs.d correspondingly.
 
 This customization may contain some of my personal information, please
 do not do evil with it! :-)
+
+Merged to virtualbox from vmware
+		2013.10.07
