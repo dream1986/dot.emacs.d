@@ -1078,7 +1078,3 @@ will stop synchronizing mark information with emacs mark ring. "
 (provide 'ace-jump-mode)
 
 ;;; ace-jump-mode.el ends here
-
-;; Local Variables: 
-;; byte-compile-warnings: (not cl-functions) 
-;; End: 

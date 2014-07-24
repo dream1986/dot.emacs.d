@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2010 Free Software Foundation
 
-;; Author:  <user@workstation.anyshare>
-;; Created: 2013-09-03 20:51:22+0800
+;; Author:  <user@gentoo>
+;; Created: 2014-07-18 22:50:18+0000
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

@@ -1,0 +1,22 @@
+; w3m
+(autoload 'w3m "w3m" "interface for w3m on emacs" t)
+(setq w3m-command-arguments '("-cookie" "-F"))
+(setq w3m-use-cookies t)
+(setq w3m-home-page "http://www.linuxsir.com/bbs/")
+(require 'mime-w3m)
+(setq w3m-default-display-inline-image t)
+(setq w3m-default-toggle-inline-images t)
+;;
+(setq w3m-arrived-file-coding-system 'euc-cn)
+(setq w3m-bookmark-file-coding-system 'euc-cn)
+(setq w3m-default-url-coding-system 'euc-cn)
+(setq w3m-output-coding-system 'euc-cn)
+(setq w3m-coding-system 'euc-cn)
+(setq w3m-input-coding-system 'euc-cn)
+(setq w3m-find-coding-system 'euc-cn)
+(setq w3m-default-coding-system 'euc-cn)
+(setq w3m-coding-system-priority-list '(euc-cn))
+(setq w3m-file-name-coding-system 'euc-cn)
+(setq w3m-bookmark-file-coding-system 'euc-cn)
+
+(provide 'w3m-cfg)

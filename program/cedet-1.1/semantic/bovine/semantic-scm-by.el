@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2001, 2003, 2009 Eric M. Ludlam
 
-;; Author:  <user@workstation.anyshare>
-;; Created: 2013-09-03 20:51:20+0800
+;; Author:  <user@gentoo>
+;; Created: 2014-07-18 22:50:17+0000
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

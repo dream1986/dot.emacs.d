@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;   Nicol TAO Emacs profile
-;;
+;;   陶治江
 ;;   Sichuan University, 
 ;;   Alcatel-Lucent Shanghai Bell, 
 ;;   Redhat Beijing
@@ -15,6 +15,7 @@
 (setq user-mail-address "taozhijiang@gmail.com")
 
 ;; Global Key Prefix Define
+;; 添加C-x C-c C-t两种键盘映射
 ;; C-c
 (define-prefix-command 'ctl-c-map)
 (global-set-key (kbd "C-c") 'ctl-c-map)
@@ -23,6 +24,10 @@
 (define-prefix-command 'ctl-t-map)
 (global-set-key (kbd "C-t") 'ctl-t-map)
 
+;; Helm开发的库文件，主要用在了helm-gtags
+(message  "Addings of helm ...")
+(add-to-list 'load-path
+	(concat relative-dir "/helm/"))
 
 
 ;; We store backup all the files to the directory EmacsData/auto-save-list
@@ -30,9 +35,6 @@
 			 (cons "." 
 				(concat relative-dir "/EmacsData/auto-save-list/"))
 )
-;;(setq auto-save-list-file-prefix
-;;				(concat relative-dir "/EmacsData/auto-save-list/")
-;;)
 
 ;; The backspace key is broken
 ;; (define-key global-map "\C-h" 'backward-delete-char)
@@ -41,22 +43,17 @@
 
 ;;First and formost, the Ctrl-Space corrupts
 ;;with the input methord, so bind the set-mark-command to
-(global-unset-key (kbd "C-SPC"))
+(global-unset-key (kbd "C-SPC"))               ;;选择标记开始
 (global-set-key (kbd "C-q") 'set-mark-command)
-(global-set-key "\C-cs" 'query-replace)
-;; If we C-k at the beginning of the line, then kill the \n also
-(setq-default kill-whole-line t)
+(global-set-key "\C-cs" 'query-replace)        ;;询问式查找替换
+(setq-default kill-whole-line t)               ;;连带删除整行的结尾换行符
 
-;; Setup the emacs global hot key
 ;; Set 'C-x C-m' to close the emacs
 (global-set-key "\C-x\C-m" 'save-buffers-kill-terminal)
 
 ;;Goto the definite line by the line number "C-x l"
-;;(define-key ctl-x-map "l" 'goto-line)
-(global-set-key "\C-xl" 'goto-line)
-;;Home; to the begin of the current buffer
-(global-set-key [(home)] 'beginning-of-buffer)
-;;End; to the end of the current buffer
+(define-key ctl-x-map "l" 'goto-line)
+(global-set-key [(home)] 'beginning-of-buffer)  ;; HOME  END 跳转到缓冲区的开头结尾
 (global-set-key [(end)] 'end-of-buffer)
 
 ;;By default, the M-w can not copy things to the system clipboard
@@ -66,16 +63,15 @@
 ;;The general apperance
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;Miss the startup message
-(setq inhibit-startup-message t)
-;;Highlight depend on the stynx
-(global-font-lock-mode t)
+(setq inhibit-startup-message t)                ;;缩减启动信息
+(global-font-lock-mode t)                       ;;打开语法高亮显示
+;; 关闭滚动条，关闭工具栏，打开菜单栏
 ;;Display tool & menu bar & hide scroll-bar
-;;(scroll-bar-mode -1)  ;; not avaliable in our command module
-;;(tool-bar-mode nil)
-(menu-bar-mode nil)
-;; we use F10 to toggle the display of menubar
-(global-set-key [f10] 'menu-bar-mode)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode 1)
+;; we use F8 to toggle the display of menubar
+(global-set-key [f8] 'menu-bar-mode)
 
 (global-linum-mode 1)
 ;;mouse avoid your sight
@@ -85,8 +81,7 @@
 ;;The parent blacket
 (show-paren-mode t)
 (setq show-paren-style 'parentheses)
-;;Paste to the cursor's position, not the mouse
-(setq mouse-yank-at-point t)
+(setq mouse-yank-at-point t)                   ;;粘贴在光标处，而不是鼠标处
 
 ;;Display time & date
 (display-time-mode t)
@@ -95,6 +90,9 @@
 	  display-time-interval 10
 	  display-time-format "%y-%m-%d %a %H:%M")
 (display-time)
+;; Every week starts from Monday
+(setq calendar-week-start-day 1)
+(setq calendar-location-name "北京")
 
 (setq chinese-calendar-celestial-stem
 ["甲" "乙" "丙" "丁" "戊" "已" "庚" "辛" "壬" "癸"])
@@ -114,13 +112,8 @@
 (setq c++-basic-offset 4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
 ;; Many other settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Every week starts from Monday
-(setq calendar-week-start-day 1)
-(setq calendar-location-name "北京")
 
 ;; Bookmark file
 (setq bookmark-default-file
@@ -155,7 +148,7 @@
 ;; auto-complete yasnippet
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(message " initializing for program ...")
+(message " Begin initializing for program ...")
 (add-to-list 'load-path 
 	(concat relative-dir "/program/"))
 (require 'program)
@@ -166,7 +159,7 @@
 ;; mew
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(message  " initializing for tool ...")
+(message  " Begin initializing for tool ...")
 (add-to-list 'load-path
 	(concat relative-dir "/tool/"))
 (require 'tool)
@@ -181,6 +174,13 @@
 	(concat relative-dir "/misc/"))
 (require 'misc)
 
+
+;; misc is too large right now
+;; separate and create misc_2
+(message " initializing for misc ...")
+(add-to-list 'load-path 
+	(concat relative-dir "/a_misc/"))
+(require 'a_misc)
 
 ;; Well, this full screan do make us feel very well, especaill small screen notebook
 ;; It is really cool
@@ -206,7 +206,7 @@
 (global-set-key "\C-xm" 'wenshan-edit-current-file-as-root)
 
 
-(global-set-key [f12] 'gnus)    ;;F12 to open gnus, not directly F12
+(global-set-key [f10] 'gnus)    ;;F12 to open gnus, not directly F12
 (global-set-key [f11] 'toggle-fullscreen)
 
 ;; Delete, truely mv the fiel to trushbin
@@ -224,9 +224,11 @@
 	  kept-old-versions 2 ; 保留最早的2个备份文件
 	  version-control t) ; 多次备份
 
-;; Other miscs
-;; 在minibuffer里面补全M-x执行命令
-(icomplete-mode)
+;; show images
+(auto-image-file-mode t)
+(setq w3m-default-display-inline-images t) 
+(setq w3m-use-cookies t)
+(setq w3m-display-inline-image t) 
 
 (require 'global-keyboard-keymap)
 

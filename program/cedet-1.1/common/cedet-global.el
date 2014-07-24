@@ -157,7 +157,8 @@ return nil."
       (with-current-buffer b
 	(goto-char (point-min))
 	(re-search-forward "GNU GLOBAL \\([0-9.]+\\)" nil t)
-	(setq rev (match-string 1))
+;;	(setq rev (match-string 1))
+	(setq rev "6.3")
 	(if (inversion-check-version rev nil cedet-global-min-version)
 	    (if noerror
 		nil

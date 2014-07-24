@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002 David Ponce
 
-;; Author:  <user@workstation.anyshare>
-;; Created: 2013-09-03 20:50:54+0800
+;; Author:  <user@gentoo>
+;; Created: 2014-07-18 22:50:04+0000
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

@@ -29,13 +29,24 @@
 ;;auto-complete
 (add-to-list 'load-path 
 	(concat relative-dir "/program/auto-complete-1.3.1/"))
+
+(set-default 'ac-sources
+               '(ac-source-semantic
+                 ac-source-yasnippet
+                 ac-source-abbrev
+                 ac-source-words-in-buffer
+                 ac-source-words-in-all-buffer
+                 ac-source-imenu
+                 ac-source-files-in-current-dir
+                 ac-source-filename))
+
 (require 'auto-complete-config)
+(ac-config-default)
+
 (add-to-list 'ac-dictionary-directories 
 	(concat relative-dir "/program/auto-complete-1.3.1/ac-dict"))
-(ac-config-default)
 (setq ac-comphist-file
 	(concat relative-dir "/EmacsData/ac-comphist.dat"))
-
 
 ;;For multi-line comment, all begin with /*
 (setq comment-multi-line t)
@@ -51,8 +62,8 @@
 			 (c-set-style "stroustrup")
 			 (c-toggle-auto-state)
 			 (c-toggle-hungry-state)
-			 (local-set-key [(f7)] 'compile)
-			 (local-set-key [(f8)] 'gdb)))
+			 (local-set-key [(f5)] 'compile)
+			 (local-set-key [(f6)] 'gdb)))
 
 ;; C++ language develop
 (add-hook 'c++-mode-hook
@@ -60,93 +71,14 @@
 			 (c-set-style "stroustrup")
 			 (c-toggle-auto-state)
 			 (c-toggle-hungry-state)
-			 (local-set-key [(f7)] 'compile)
-			 (local-set-key [(f8)] 'gdb)))
+			 (local-set-key [(f5)] 'compile)
+			 (local-set-key [(f6)] 'gdb)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;;emacs cedet
-;;
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;; IMPORTANT: For Emacs >= 23.2, you must place this *before* any
-;; CEDET component (including EIEIO) gets activated by another 
-;; package (Gnus, auth-source, ...).
-;;(load-file "~/.emacs.d/program/cedet-1.1/common/cedet.el")
+;;; 
+;; cedet
 
-;; remove the build-in cedet
-(setq load-path (remove "/usr/local/share/emacs/23.4/lisp/cedet" load-path))
-(add-to-list 'load-path
-			 (concat relative-dir "/program/cedet-1.1/common"))
-(load-file 
-	(concat relative-dir "/program/cedet-1.1/common/cedet.el"))
-(setq semanticdb-default-save-directory 
-	(concat relative-dir "/EmacsData/semanticdb/"))
-;; just for try
-(setq auto-save-hook nil)
-
-;; Enable EDE (Project Management) features
-;;(global-ede-mode 1)
-
-;;;;;;;;;;;;;;;;;;;;;;;
-;; semantic mode select
-(semantic-load-enable-minimum-features)
-(semantic-load-enable-code-helpers)
-(semantic-load-enable-guady-code-helpers)
-(semantic-load-enable-excessive-code-helpers)
-(semantic-load-enable-semantic-debugging-helpers)
-
-;; I use this to accelarate cedet with cscope
-(semanticdb-enable-cscope-databases)
-;;
-(require 'semantic-ia)
-;; Include system inc files
-(require 'semantic-gcc)
-(require 'semanticdb)
-;;(require 'eieio-opt)
-
-;; add for the usr & sys inc dir
-(defconst cedet-user-include-dirs
-  (list ".." "../include" "../inc" "../common" "../public" "."
-        "../.." "../../include" "../../inc" "../../common" "../../public"))
-(setq cedet-sys-include-dirs (list
-							  "/usr/include"
-							  "/usr/include/bits"
-							  "/usr/include/glib-2.0"
-							  "/usr/include/gnu"
-							  "/usr/local/include/c++/4.4.4/"
-							  "/usr/local/include"
-							  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/")
-)
-(semantic-add-system-include  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/" 'c-mode)
-
-(let ((include-dirs cedet-user-include-dirs))
-  (setq include-dirs (append include-dirs cedet-sys-include-dirs))
-  (mapc (lambda (dir)
-          (semantic-add-system-include dir 'c++-mode)
-          (semantic-add-system-include dir 'c-mode))
-        include-dirs))
-
-(defun my-cedet-hook()
-;;  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-;;  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-  (local-set-key (kbd "M-n") 'semantic-ia-complete-symbol-menu)
-
-;;  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-;;  (local-set-key (kbd "M-/") 'semantic-complete-analyze-inline)
-
-;;  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-;;  (local-set-key "\C-cd" 'semantic-ia-fast-jump)
-;;  (local-set-key "\C-cr" 'semantic-symref-symbol)
-;;  (local-set-key "\C-cR" 'semantic-symref)
-  ;;; c/c++ setting
-;;  (local-set-key "." 'semantic-complete-self-insert)
-;;  (local-set-key ">" 'semantic-complete-self-insert)
-)
-
-(add-hook 'c-mode-common-hook 'my-cedet-hook)
-(add-hook 'c++-mode-common-hook 'my-cedet-hook)
-
+(require 'cedet-cfg)
 
 ;; flymake
 ;; Used for the language syntax check
@@ -157,10 +89,10 @@
 (define-key flymake-mode-map (kbd "C-c C-p") 'flymake-goto-prev-error-disp)
 (define-key flymake-mode-map (kbd "C-c M-w")
   'flymake-display-err-menu-for-current-line)
-(or (assoc 'flymake-mode minor-mode-map-alist)
-    (setq minor-mode-map-alist
-          (cons (cons 'flymake-mode flymake-mode-map)
-                minor-mode-map-alist)))
+	(or (assoc 'flymake-mode minor-mode-map-alist)
+    		(setq minor-mode-map-alist
+          		(cons (cons 'flymake-mode flymake-mode-map)
+               			minor-mode-map-alist)))
 
 
 ;; This for the include headers
@@ -185,15 +117,8 @@
                                    (list "/usr/include"
                                          "/usr/local/include"
 					 "/usr/include/bits"
-					 "/usr/include/glib-2.0"
 					 "/usr/include/gnu"
-					 "/usr/include/gtk-2.0"
-					 "/usr/include/gtk-2.0/gdk-pixbuf"
-					 "/usr/include/gtk-2.0/gtk"
 					 "/usr/local/include"
-					 "/usr/include/c++/4.4.4/"
-					 "/usr/local/include/c++/4.4.4/"
-	       			  "~/GitHub/kernel-src.git/linux-2.6.32-358.18.1.el6/include/"
 					 )))))
   ">")
 
@@ -223,8 +148,10 @@
 ;; 这不是一个好办法，也可以把它加载到 c-mode-hook or c++-mode-hook 中。
 (setq wcy-c/c++-hightligh-included-files-timer (run-with-idle-timer 4 t 'wcy-c/c++-hightligh-included-files))
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ecb
+;; ecb  (Emacs Code Browser)
 ;;
 
 (add-to-list 'load-path 
@@ -267,18 +194,19 @@
 	  ecb-tip-of-the-day nil)
 
 ;; ecb shortcut
-(global-set-key (kbd "ESC <left>") 'windmove-left)
-(global-set-key (kbd "ESC <right>") 'windmove-right)
-(global-set-key (kbd "ESC <up>") 'windmove-up)
-(global-set-key (kbd "ESC <down>") 'windmove-down)
+(global-set-key [M-left]  'windmove-left)
+(global-set-key [M-right] 'windmove-right)
+(global-set-key [M-up]    'windmove-up)
+(global-set-key [M-down]  'windmove-down)
 
 ;; show & hide ecb multi-windows
-(global-set-key (kbd "<f10>") 'ecb-hide-ecb-windows)
-(global-set-key (kbd "ESC <f10>") 'ecb-show-ecb-windows)
+(global-set-key (kbd "<f9>") 'ecb-hide-ecb-windows)
+(global-set-key (kbd "ESC <f9>") 'ecb-show-ecb-windows)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cscope
-(require 'xcscope)
+;; (require 'xcscope)
 ;;      C-c s s         Find symbol.
 ;;      C-c s d         Find global definition.
 ;;      C-c s g         Find global definition (alternate binding).
@@ -322,7 +250,11 @@
 ;;  - C-c d s will insert a blank single-line Doxygen comment.
 ;;  - C-c d @ will insert grouping comments around the current region.
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; yasippet
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;The yasippet code auto-complete specification
+;;You can define yourself complete template for shortcut
 (add-to-list 'load-path 
 	(concat relative-dir "/program/yasnippet-0.6.1c"))
 (require 'yasnippet)

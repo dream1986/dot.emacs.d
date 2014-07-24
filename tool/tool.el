@@ -13,6 +13,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;
+;; Org Mode
+;;
+(add-to-list 'load-path
+	(concat relative-dir "/tool/org-8.2.7b/lisp"))
+(add-to-list 'load-path
+	(concat relative-dir "/tool/org-8.2.7b/contrib/lisp") t)
+
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+
+(setq org-src-fontify-natively t)   
+(setq org-startup-indented t)
+
+
+;; 强制的
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+(add-hook 'org-mode-hook 'turn-on-font-lock)
+(transient-mark-mode 1)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flyspell
@@ -66,6 +89,41 @@
 (define-key ctl-c-map "a" 'ack)
 (define-key ctl-c-map "f" 'ack-find-file) ;;在当前路径中，选择目录打开的文件
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; mew mail client
+(add-to-list 'load-path 
+	(concat relative-dir "/tool/mew-6.6/"))
+(require 'mew-cfg)
+
+
+;; org secret
+;; org-mode 設定
+(require 'epa-file)
+(epa-file-enable)  ;;this will auto encrypt *.gpg file
+
+(setq epa-file-select-keys 0)
+(setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
+(require 'org-crypt)
+;; 當被加密的部份要存入硬碟時，自動加密回去
+;; M-x org-decrypt-entry 
+(org-crypt-use-before-save-magic)
+;; 設定要加密的 tag 標籤為 secret
+(setq org-crypt-tag-matcher "secret")   ;;Using C-c C-c to add tag
+;; 避免 secret 這個 tag 被子項目繼承 造成重複加密
+(setq org-tags-exclude-from-inheritance (quote ("secret")))
+;; 可以設定任何 ID 或是設成 nil 來使用對稱式加密 (symmetric encryption)
+(setq org-crypt-key nil)
+
+
+
+;; use C-= to expand the region to select, intelligent
+(add-to-list 'load-path 
+	(concat relative-dir "/tool/expand-region/"))
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C--") 'er/contract-region)
 
 (provide 'tool)
 
