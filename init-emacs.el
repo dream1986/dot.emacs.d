@@ -24,12 +24,6 @@
 (define-prefix-command 'ctl-t-map)
 (global-set-key (kbd "C-t") 'ctl-t-map)
 
-;; Helm开发的库文件，主要用在了helm-gtags
-(message  "Addings of helm ...")
-(add-to-list 'load-path
-	(concat relative-dir "/helm/"))
-
-
 ;; We store backup all the files to the directory EmacsData/auto-save-list
 (add-to-list 'backup-directory-alist
 			 (cons "." 

@@ -133,7 +133,7 @@
 
 ;; buffer-menu+
 ;; already handled with >24.1 compatible
-(load-file "~/GitHub/dot.emacs.d.git/misc/buff-menu.el")
+(load-file "~/Study/GitHub/dot.emacs.d.git/misc/buff-menu.el")
 (require 'buff-menu+)
 (global-set-key (kbd "C-x C-b") 'buffer-menu)   ;; seems much better
 

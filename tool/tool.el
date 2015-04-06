@@ -90,13 +90,6 @@
 (define-key ctl-c-map "f" 'ack-find-file) ;;在当前路径中，选择目录打开的文件
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; mew mail client
-(add-to-list 'load-path 
-	(concat relative-dir "/tool/mew-6.6/"))
-(require 'mew-cfg)
-
-
 ;; org secret
 ;; org-mode 設定
 (require 'epa-file)

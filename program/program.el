@@ -78,7 +78,7 @@
 ;;; 
 ;; cedet
 
-(require 'cedet-cfg)
+;;(require 'cedet-cfg)
 
 ;; flymake
 ;; Used for the language syntax check
@@ -147,77 +147,6 @@
           (overlay-put ov 'face 'underline))))))
 ;; 这不是一个好办法，也可以把它加载到 c-mode-hook or c++-mode-hook 中。
 (setq wcy-c/c++-hightligh-included-files-timer (run-with-idle-timer 4 t 'wcy-c/c++-hightligh-included-files))
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ecb  (Emacs Code Browser)
-;;
-
-(add-to-list 'load-path 
-	(concat relative-dir "/program/ecb-2.40"))
-(require 'ecb)
-(require 'ecb-autoloads)
-
-;;;
-;;(ecb-layout-define "left-symboldef-lite" left nil
-;;  (ecb-set-sources-buffer)
-;;  (ecb-split-ver 0.2)
-;;  (ecb-set-methods-buffer)
-;;  (ecb-split-ver 0.5)
-;;  (ecb-set-symboldef-buffer)
-;;  (select-window (next-window)))
-
-(ecb-layout-define "my-cscope-layout" left nil
-                   (ecb-set-history-buffer)
-                   (ecb-split-ver 0.25 t)
-                   (other-window 1)
-                   (ecb-set-methods-buffer)
-                   (ecb-split-ver 0.5 t)
-                   (other-window 1)
-                   (ecb-set-cscope-buffer))
-
-(defecb-window-dedicator ecb-set-cscope-buffer " *ECB cscope-buf*"
-                         (switch-to-buffer "*cscope*"))
-
-(setq ecb-layout-name "my-cscope-layout")
-;;(setq ecb-layout-name "left-symboldef-lite")
-
-;; Disable buckets so that history buffer can display more entries
-(setq ecb-history-make-buckets 'never)
-
-;;(setq ecb-layout-name "left-symboldef")
-
-(setq stack-trace-on-error nil)
-
-(setq ecb-auto-activate t
-	  ecb-tip-of-the-day nil)
-
-;; ecb shortcut
-(global-set-key [M-left]  'windmove-left)
-(global-set-key [M-right] 'windmove-right)
-(global-set-key [M-up]    'windmove-up)
-(global-set-key [M-down]  'windmove-down)
-
-;; show & hide ecb multi-windows
-(global-set-key (kbd "<f9>") 'ecb-hide-ecb-windows)
-(global-set-key (kbd "ESC <f9>") 'ecb-show-ecb-windows)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; cscope
-;; (require 'xcscope)
-;;      C-c s s         Find symbol.
-;;      C-c s d         Find global definition.
-;;      C-c s g         Find global definition (alternate binding).
-;;      C-c s G         Find global definition without prompting.
-;;      C-c s c         Find functions calling a function.
-;;      C-c s C         Find called functions (list functions called
-;;                      from a function).
-;;      C-c s t         Find text string.
-;;      C-c s e         Find egrep pattern.
-;;      C-c s f         Find a file.
-;;      C-c s i         Find files #including a file.
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
